@@ -92,13 +92,20 @@ def equal(event) -> None:
     for ind, error_code in enumerate(number_codes):
         res = error_handler(error_code, ind+1)
 
+    first_operation = OPERATIONS_ENTRIES[0].get()
+    second_operation = OPERATIONS_ENTRIES[1].get()
+    third_operation = OPERATIONS_ENTRIES[2].get()
     if not res:
-        answer = 0
         try:
-            exec(f"answer = str(round(Decimal(first_number) "
-                 f"{OPERATIONS_ENTRIES[0].get()} round(Decimal(second_number) {OPERATIONS_ENTRIES[1].get()} "
-                 f"Decimal(third_number), 10) {OPERATIONS_ENTRIES[2].get()} Decimal(fourth_number), 6))")
-            print(answer)
+            answer = eval(f"round(Decimal(second_number) {second_operation} Decimal(third_number), 10)")
+            if (first_operation in "*/") or (second_operation in "+-"):
+                answer = eval(f"round(Decimal(first_number) {first_operation} Decimal({answer}), 10)")
+                answer = eval(f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 6)")
+            else:
+                answer = eval(f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 10)")
+                answer = eval(f"round(Decimal(first_number) {first_operation} Decimal({answer}), 6)")
+            answer = f"{answer:,}".replace(",", " ")
+            answer_value.set(answer)
         except ZeroDivisionError as err:
             messagebox.showwarning("Неверный ввод", f"На ноль делить нельзя")
             clear(0, entry_values, operation_values)
