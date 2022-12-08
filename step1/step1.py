@@ -28,22 +28,34 @@ def handle_operation(event, operation: str) -> None:
         elif second_number_code == ERROR_INCORRECT_NUMBER:
             messagebox.showwarning("Неверный ввод", "Во второе число введено не число")
     else:
-        if operation == '+':
+        if operation == "+":
             answer_value = float(first_number) + float(second_number)
-            if not ((answer_value >= -1_000_000_000_000.0) and (answer_value <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer_value >= -1_000_000_000_000.0)
+                and (answer_value <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
                 answer.set(str(answer_value))
-        elif operation == '-':
+        elif operation == "-":
             answer_value = float(first_number) - float(second_number)
-            if not ((answer_value >= -1_000_000_000_000.0) and (answer_value <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer_value >= -1_000_000_000_000.0)
+                and (answer_value <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
                 answer.set(str(answer_value))
+
 
 def clear(event, entries: List[tkinter.StringVar]) -> None:
     for entry in entries:
         entry.set("")
+
 
 def preprocess_number(number: str):
     dot_count = number.count(".")
@@ -80,22 +92,57 @@ if __name__ == "__main__":
     second_number = tkinter.StringVar()
 
     # buttons
-    plus_button = tkinter.Button(app, text="+", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    minus_button = tkinter.Button(app, text="-", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    clear_button = tkinter.Button(app, text="Очистить", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
+    plus_button = tkinter.Button(
+        app,
+        text="+",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    minus_button = tkinter.Button(
+        app,
+        text="-",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    clear_button = tkinter.Button(
+        app,
+        text="Очистить",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
 
     # labels
     author_label = tkinter.Label(app, text=f"{AUTHER}")
     curs_label = tkinter.Label(app, text=f"{EDUCATED_YEAR} курс, {GROUP} группа")
     year_label = tkinter.Label(app, text=f"{YEAR} год")
-    first_number_label = tkinter.Label(app, text="Первое число:", font=('Helvatical bold',20))
-    second_number_label = tkinter.Label(app, text="Второе число:", font=('Helvatical bold',20))
-    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=('Helvatical bold',20))
+    first_number_label = tkinter.Label(
+        app, text="Первое число:", font=("Helvatical bold", 20)
+    )
+    second_number_label = tkinter.Label(
+        app, text="Второе число:", font=("Helvatical bold", 20)
+    )
+    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=("Helvatical bold", 20))
 
     # entries
-    first_number_entry = tkinter.Entry(app, justify=tkinter.LEFT, textvariable=first_number, font=('Helvatical bold',15))
-    second_number_entry = tkinter.Entry(app, textvariable=second_number, font=('Helvatical bold',15))
-    answer_entry = tkinter.Entry(app, textvariable = answer, font=('Helvatical bold',15))
+    first_number_entry = tkinter.Entry(
+        app,
+        justify=tkinter.LEFT,
+        textvariable=first_number,
+        font=("Helvatical bold", 15),
+    )
+    second_number_entry = tkinter.Entry(
+        app, textvariable=second_number, font=("Helvatical bold", 15)
+    )
+    answer_entry = tkinter.Entry(app, textvariable=answer, font=("Helvatical bold", 15))
 
     # placing
     year_label.pack(side=tkinter.BOTTOM)
@@ -114,9 +161,10 @@ if __name__ == "__main__":
     answer_entry.place(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.1)
 
     # commands
-    plus_button.bind('<Button-1>', lambda event: handle_operation(event, "+"))
-    minus_button.bind('<Button-1>', lambda event: handle_operation(event, "-"))
-    clear_button.bind('<Button-1>', lambda event: clear(event, [first_number, second_number, answer]))
+    plus_button.bind("<Button-1>", lambda event: handle_operation(event, "+"))
+    minus_button.bind("<Button-1>", lambda event: handle_operation(event, "-"))
+    clear_button.bind(
+        "<Button-1>", lambda event: clear(event, [first_number, second_number, answer])
+    )
 
     app.mainloop()
-

@@ -48,7 +48,9 @@ def preprocess_number(number: str) -> str:
 def error_handler(error_code: int, index: int) -> int:
     res = 0
     if error_code == ERROR_OUT_OF_RANGE:
-        messagebox.showwarning("Неверный ввод", f"{index}-е число не входит в допустимый диапозон")
+        messagebox.showwarning(
+            "Неверный ввод", f"{index}-е число не входит в допустимый диапозон"
+        )
         res = 1
     elif error_code == ERROR_INCORRECT_NUMBER:
         messagebox.showwarning("Неверный ввод", f"В {index}-е поле введено не число")
@@ -86,24 +88,38 @@ def equal(event) -> None:
     third_number = preprocess_number(NUMBER_ENTRIES[2].get())
     fourth_number = preprocess_number(NUMBER_ENTRIES[3].get())
 
-    number_codes = [check_number(first_number), check_number(second_number),
-                    check_number(third_number), check_number(fourth_number)]
+    number_codes = [
+        check_number(first_number),
+        check_number(second_number),
+        check_number(third_number),
+        check_number(fourth_number),
+    ]
     res = 0
     for ind, error_code in enumerate(number_codes):
-        res = error_handler(error_code, ind+1)
+        res = error_handler(error_code, ind + 1)
 
     first_operation = OPERATIONS_ENTRIES[0].get()
     second_operation = OPERATIONS_ENTRIES[1].get()
     third_operation = OPERATIONS_ENTRIES[2].get()
     if not res:
         try:
-            answer = eval(f"round(Decimal(second_number) {second_operation} Decimal(third_number), 10)")
+            answer = eval(
+                f"round(Decimal(second_number) {second_operation} Decimal(third_number), 10)"
+            )
             if (first_operation in "*/") or (second_operation in "+-"):
-                answer = eval(f"round(Decimal(first_number) {first_operation} Decimal({answer}), 10)")
-                answer = eval(f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 6)")
+                answer = eval(
+                    f"round(Decimal(first_number) {first_operation} Decimal({answer}), 10)"
+                )
+                answer = eval(
+                    f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 6)"
+                )
             else:
-                answer = eval(f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 10)")
-                answer = eval(f"round(Decimal(first_number) {first_operation} Decimal({answer}), 6)")
+                answer = eval(
+                    f"round(Decimal({answer}) {third_operation} Decimal(fourth_number), 10)"
+                )
+                answer = eval(
+                    f"round(Decimal(first_number) {first_operation} Decimal({answer}), 6)"
+                )
             answer = f"{answer:,}".replace(",", " ")
             answer_value.set(answer)
         except ZeroDivisionError as err:
@@ -129,9 +145,19 @@ if __name__ == "__main__":
     second_operation_value = tkinter.StringVar(app, "+")
     third_operation_value = tkinter.StringVar(app, "+")
 
-    entry_values = [first_number_value, second_number_value, third_number_value,
-                    fourth_number_value, answer_value, computing_answer_value]
-    operation_values = [first_operation_value, second_operation_value, third_operation_value]
+    entry_values = [
+        first_number_value,
+        second_number_value,
+        third_number_value,
+        fourth_number_value,
+        answer_value,
+        computing_answer_value,
+    ]
+    operation_values = [
+        first_operation_value,
+        second_operation_value,
+        third_operation_value,
+    ]
 
     computing = tkinter.StringVar(app, "1")
 
@@ -142,47 +168,138 @@ if __name__ == "__main__":
     }
 
     # buttons
-    plus_button = tkinter.Button(app, text="+", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    minus_button = tkinter.Button(app, text="-", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    clear_button = tkinter.Button(app, text="Очистить", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    multiplication_button = tkinter.Button(app, text="*", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    division_button = tkinter.Button(app, text="/", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    equal_button = tkinter.Button(app, text="=", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
+    plus_button = tkinter.Button(
+        app,
+        text="+",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    minus_button = tkinter.Button(
+        app,
+        text="-",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    clear_button = tkinter.Button(
+        app,
+        text="Очистить",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    multiplication_button = tkinter.Button(
+        app,
+        text="*",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    division_button = tkinter.Button(
+        app,
+        text="/",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    equal_button = tkinter.Button(
+        app,
+        text="=",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
 
     # labels
     author_label = tkinter.Label(app, text=f"{AUTHER}")
     curs_label = tkinter.Label(app, text=f"{EDUCATED_YEAR} курс, {GROUP} группа")
     year_label = tkinter.Label(app, text=f"{YEAR} год")
-    first_number_label = tkinter.Label(app, text="Первое число:", font=('Helvatical bold',15))
-    second_number_label = tkinter.Label(app, text="Второе число:", font=('Helvatical bold',15))
-    third_number_label = tkinter.Label(app, text="Третье число:", font=('Helvatical bold',15))
-    fourth_number_label = tkinter.Label(app, text="Четвертое число:", font=('Helvatical bold',15))
-    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=('Helvatical bold',20))
-    computing_answer_label = tkinter.Label(app, text="Округленный результат:", font=('Helvatical bold',20))
-    left_bracket = tkinter.Label(app, text="(", font=('Helvatical bold',40))
-    right_bracket = tkinter.Label(app, text=")", font=('Helvatical bold',40))
-    computing_question_label = tkinter.Label(app, text="Тип округления:", font=('Helvatical bold',20))
+    first_number_label = tkinter.Label(
+        app, text="Первое число:", font=("Helvatical bold", 15)
+    )
+    second_number_label = tkinter.Label(
+        app, text="Второе число:", font=("Helvatical bold", 15)
+    )
+    third_number_label = tkinter.Label(
+        app, text="Третье число:", font=("Helvatical bold", 15)
+    )
+    fourth_number_label = tkinter.Label(
+        app, text="Четвертое число:", font=("Helvatical bold", 15)
+    )
+    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=("Helvatical bold", 20))
+    computing_answer_label = tkinter.Label(
+        app, text="Округленный результат:", font=("Helvatical bold", 20)
+    )
+    left_bracket = tkinter.Label(app, text="(", font=("Helvatical bold", 40))
+    right_bracket = tkinter.Label(app, text=")", font=("Helvatical bold", 40))
+    computing_question_label = tkinter.Label(
+        app, text="Тип округления:", font=("Helvatical bold", 20)
+    )
 
     # entries
-    first_number_entry = tkinter.Entry(app, justify=tkinter.LEFT, textvariable=first_number_value, font=('Helvatical bold',15))
-    second_number_entry = tkinter.Entry(app, textvariable=second_number_value, font=('Helvatical bold',15))
-    third_number_entry = tkinter.Entry(app, textvariable=third_number_value, font=('Helvatical bold',15))
-    fourth_number_entry = tkinter.Entry(app, textvariable=fourth_number_value, font=('Helvatical bold',15))
-    answer_entry = tkinter.Entry(app, textvariable = answer_value, font=('Helvatical bold',15))
-    computing_answer_entry = tkinter.Entry(app, textvariable=computing_answer_value, font=('Helvatical bold',15))
-    first_operation_entry = tkinter.Entry(app,textvariable=first_operation_value, font=('Helvatical bold',35))
-    second_operation_entry = tkinter.Entry(app, textvariable=second_operation_value, font=('Helvatical bold',35))
-    third_operation_entry = tkinter.Entry(app, textvariable=third_operation_value, font=('Helvatical bold',35))
+    first_number_entry = tkinter.Entry(
+        app,
+        justify=tkinter.LEFT,
+        textvariable=first_number_value,
+        font=("Helvatical bold", 15),
+    )
+    second_number_entry = tkinter.Entry(
+        app, textvariable=second_number_value, font=("Helvatical bold", 15)
+    )
+    third_number_entry = tkinter.Entry(
+        app, textvariable=third_number_value, font=("Helvatical bold", 15)
+    )
+    fourth_number_entry = tkinter.Entry(
+        app, textvariable=fourth_number_value, font=("Helvatical bold", 15)
+    )
+    answer_entry = tkinter.Entry(
+        app, textvariable=answer_value, font=("Helvatical bold", 15)
+    )
+    computing_answer_entry = tkinter.Entry(
+        app, textvariable=computing_answer_value, font=("Helvatical bold", 15)
+    )
+    first_operation_entry = tkinter.Entry(
+        app, textvariable=first_operation_value, font=("Helvatical bold", 35)
+    )
+    second_operation_entry = tkinter.Entry(
+        app, textvariable=second_operation_value, font=("Helvatical bold", 35)
+    )
+    third_operation_entry = tkinter.Entry(
+        app, textvariable=third_operation_value, font=("Helvatical bold", 35)
+    )
 
-    OPERATIONS_ENTRIES = [first_operation_value, second_operation_value, third_operation_value]
-    NUMBER_ENTRIES = [first_number_value, second_number_value, third_number_value, fourth_number_value]
+    OPERATIONS_ENTRIES = [
+        first_operation_value,
+        second_operation_value,
+        third_operation_value,
+    ]
+    NUMBER_ENTRIES = [
+        first_number_value,
+        second_number_value,
+        third_number_value,
+        fourth_number_value,
+    ]
 
     # radiobuttons
     rb_x = 0.05
     rb_y = 0.5
     for txt, val in computing_options.items():
-        r1 = tkinter.Radiobutton(app, text=txt, variable=computing, value=val,
-                font=('Helvatical bold',15))
+        r1 = tkinter.Radiobutton(
+            app, text=txt, variable=computing, value=val, font=("Helvatical bold", 15)
+        )
         r1.place(relx=rb_x, rely=rb_y)
         rb_y += 0.05
 
@@ -211,28 +328,45 @@ if __name__ == "__main__":
     second_number_entry.place(relx=0.285, rely=0.1, relwidth=0.15, relheight=0.1)
     third_number_entry.place(relx=0.535, rely=0.1, relwidth=0.15, relheight=0.1)
     fourth_number_entry.place(relx=0.8, rely=0.1, relwidth=0.15, relheight=0.1)
-    first_operation_entry.place(relx=0.21, rely= 0.1, relwidth=0.04, relheight=0.1)
+    first_operation_entry.place(relx=0.21, rely=0.1, relwidth=0.04, relheight=0.1)
     second_operation_entry.place(relx=0.46, rely=0.1, relwidth=0.04, relheight=0.1)
     third_operation_entry.place(relx=0.73, rely=0.1, relwidth=0.04, relheight=0.1)
     answer_entry.place(relx=0.2, rely=0.3, relwidth=0.4, relheight=0.1)
     computing_answer_entry.place(relx=0.05, rely=0.76, relwidth=0.3, relheight=0.1)
 
     # commands
-    plus_button.bind('<Button-1>', lambda event: handle_operation(event, "+"))
-    minus_button.bind('<Button-1>', lambda event: handle_operation(event, "-"))
-    multiplication_button.bind('<Button-1>', lambda event: handle_operation(event, "*"))
-    division_button.bind('<Button-1>', lambda event: handle_operation(event, "/"))
-    clear_button.bind('<Button-1>', lambda event: clear(event,
-            entry_values, operation_values))
-    equal_button.bind('<Button-1>', lambda event: equal(event))
+    plus_button.bind("<Button-1>", lambda event: handle_operation(event, "+"))
+    minus_button.bind("<Button-1>", lambda event: handle_operation(event, "-"))
+    multiplication_button.bind("<Button-1>", lambda event: handle_operation(event, "*"))
+    division_button.bind("<Button-1>", lambda event: handle_operation(event, "/"))
+    clear_button.bind(
+        "<Button-1>", lambda event: clear(event, entry_values, operation_values)
+    )
+    equal_button.bind("<Button-1>", lambda event: equal(event))
 
-    first_number_entry.bind('<FocusIn>', lambda event: focus_in(event, first_number_value))
-    first_number_entry.bind('<FocusOut>', lambda event: focus_out(event, first_number_value))
-    second_number_entry.bind('<FocusIn>', lambda event: focus_in(event, second_number_value))
-    second_number_entry.bind('<FocusOut>', lambda event: focus_out(event, second_number_value))
-    third_number_entry.bind('<FocusIn>', lambda event: focus_in(event, third_number_value))
-    third_number_entry.bind('<FocusOut>', lambda event: focus_out(event, third_number_value))
-    fourth_number_entry.bind('<FocusIn>', lambda event: focus_in(event, fourth_number_value))
-    fourth_number_entry.bind('<FocusOut>', lambda event: focus_out(event, fourth_number_value))
+    first_number_entry.bind(
+        "<FocusIn>", lambda event: focus_in(event, first_number_value)
+    )
+    first_number_entry.bind(
+        "<FocusOut>", lambda event: focus_out(event, first_number_value)
+    )
+    second_number_entry.bind(
+        "<FocusIn>", lambda event: focus_in(event, second_number_value)
+    )
+    second_number_entry.bind(
+        "<FocusOut>", lambda event: focus_out(event, second_number_value)
+    )
+    third_number_entry.bind(
+        "<FocusIn>", lambda event: focus_in(event, third_number_value)
+    )
+    third_number_entry.bind(
+        "<FocusOut>", lambda event: focus_out(event, third_number_value)
+    )
+    fourth_number_entry.bind(
+        "<FocusIn>", lambda event: focus_in(event, fourth_number_value)
+    )
+    fourth_number_entry.bind(
+        "<FocusOut>", lambda event: focus_out(event, fourth_number_value)
+    )
 
     app.mainloop()

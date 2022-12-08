@@ -18,51 +18,72 @@ def handle_operation(event, operation: str) -> None:
     second_number = preprocess_number(second_number_entry.get())
     first_number_code = check_number(first_number)
     second_number_code = check_number(second_number)
-    if float(second_number) == 0 and operation=='/':
+    if float(second_number) == 0 and operation == "/":
         second_number_code = ERROR_ZERO_DIVISION
     if first_number_code:
         if first_number_code == ERROR_OUT_OF_RANGE:
-            messagebox.showwarning("Неверный ввод", "Первое число не входит в допустимый диапозон")
+            messagebox.showwarning(
+                "Неверный ввод", "Первое число не входит в допустимый диапозон"
+            )
         elif first_number_code == ERROR_INCORRECT_NUMBER:
             messagebox.showwarning("Неверный ввод", "В первое поле введено не число")
     elif second_number_code:
         if second_number_code == ERROR_OUT_OF_RANGE:
-            messagebox.showwarning("Неверный ввод", "Второе число не входит в допустимый диапозон")
+            messagebox.showwarning(
+                "Неверный ввод", "Второе число не входит в допустимый диапозон"
+            )
         elif second_number_code == ERROR_INCORRECT_NUMBER:
             messagebox.showwarning("Неверный ввод", "Во второе поле введено не число")
         elif second_number_code == ERROR_ZERO_DIVISION:
             messagebox.showwarning("Неверный ввод", "На ноль делить нельзя")
             clear(0, [first_number_value, second_number_value, answer_value])
     else:
-        if operation == '+':
+        if operation == "+":
             answer = round(float(first_number) + float(second_number), 6)
-            if not ((answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
-                answer_value.set(f'{answer:,}'.replace(',', ' '))
-        elif operation == '-':
+                answer_value.set(f"{answer:,}".replace(",", " "))
+        elif operation == "-":
             answer = round(float(first_number) - float(second_number), 6)
-            if not ((answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
-                answer_value.set(f'{answer:,}'.replace(',', ' '))
-        elif operation == '*':
+                answer_value.set(f"{answer:,}".replace(",", " "))
+        elif operation == "*":
             answer = round(float(first_number) * float(second_number), 6)
-            if not ((answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
-                answer_value.set(f'{answer:,}'.replace(',', ' '))
-        elif operation == '/':
+                answer_value.set(f"{answer:,}".replace(",", " "))
+        elif operation == "/":
             answer = round(float(first_number) / float(second_number), 6)
-            if not ((answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)):
-                messagebox.showwarning("Операция невозможна", "Результат не входит в допустимый диапазон")
+            if not (
+                (answer >= -1_000_000_000_000.0) and (answer <= 1_000_000_000_000.0)
+            ):
+                messagebox.showwarning(
+                    "Операция невозможна", "Результат не входит в допустимый диапазон"
+                )
             else:
-                answer_value.set(f'{answer:,}'.replace(',', ' '))
+                answer_value.set(f"{answer:,}".replace(",", " "))
 
 
 def clear(event, entries: List[tkinter.StringVar]) -> None:
     for entry in entries:
         entry.set("")
+
 
 def preprocess_number(number: str):
     dot_count = number.count(".")
@@ -99,24 +120,77 @@ if __name__ == "__main__":
     second_number_value = tkinter.StringVar()
 
     # buttons
-    plus_button = tkinter.Button(app, text="+", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    minus_button = tkinter.Button(app, text="-", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    clear_button = tkinter.Button(app, text="Очистить", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    multiplication_button = tkinter.Button(app, text="*", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
-    division_button = tkinter.Button(app, text="/", width=10, height=2, bg='yellow', fg='black', font=('Helvatical bold',15))
+    plus_button = tkinter.Button(
+        app,
+        text="+",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    minus_button = tkinter.Button(
+        app,
+        text="-",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    clear_button = tkinter.Button(
+        app,
+        text="Очистить",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    multiplication_button = tkinter.Button(
+        app,
+        text="*",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
+    division_button = tkinter.Button(
+        app,
+        text="/",
+        width=10,
+        height=2,
+        bg="yellow",
+        fg="black",
+        font=("Helvatical bold", 15),
+    )
 
     # labels
     author_label = tkinter.Label(app, text=f"{AUTHER}")
     curs_label = tkinter.Label(app, text=f"{EDUCATED_YEAR} курс, {GROUP} группа")
     year_label = tkinter.Label(app, text=f"{YEAR} год")
-    first_number_label = tkinter.Label(app, text="Первое число:", font=('Helvatical bold',20))
-    second_number_label = tkinter.Label(app, text="Второе число:", font=('Helvatical bold',20))
-    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=('Helvatical bold',20))
+    first_number_label = tkinter.Label(
+        app, text="Первое число:", font=("Helvatical bold", 20)
+    )
+    second_number_label = tkinter.Label(
+        app, text="Второе число:", font=("Helvatical bold", 20)
+    )
+    answer_label = tkinter.Label(app, text="ОТВЕТ:", font=("Helvatical bold", 20))
 
     # entries
-    first_number_entry = tkinter.Entry(app, justify=tkinter.LEFT, textvariable=first_number_value, font=('Helvatical bold',15))
-    second_number_entry = tkinter.Entry(app, textvariable=second_number_value, font=('Helvatical bold',15))
-    answer_entry = tkinter.Entry(app, textvariable = answer_value, font=('Helvatical bold',15))
+    first_number_entry = tkinter.Entry(
+        app,
+        justify=tkinter.LEFT,
+        textvariable=first_number_value,
+        font=("Helvatical bold", 15),
+    )
+    second_number_entry = tkinter.Entry(
+        app, textvariable=second_number_value, font=("Helvatical bold", 15)
+    )
+    answer_entry = tkinter.Entry(
+        app, textvariable=answer_value, font=("Helvatical bold", 15)
+    )
 
     # placing
     year_label.pack(side=tkinter.BOTTOM)
@@ -137,11 +211,15 @@ if __name__ == "__main__":
     answer_entry.place(relx=0.2, rely=0.3, relwidth=0.4, relheight=0.1)
 
     # commands
-    plus_button.bind('<Button-1>', lambda event: handle_operation(event, "+"))
-    minus_button.bind('<Button-1>', lambda event: handle_operation(event, "-"))
-    multiplication_button.bind('<Button-1>', lambda event: handle_operation(event, "*"))
-    division_button.bind('<Button-1>', lambda event: handle_operation(event, "/"))
-    clear_button.bind('<Button-1>', lambda event: clear(event, [first_number_value, second_number_value, answer_value]))
+    plus_button.bind("<Button-1>", lambda event: handle_operation(event, "+"))
+    minus_button.bind("<Button-1>", lambda event: handle_operation(event, "-"))
+    multiplication_button.bind("<Button-1>", lambda event: handle_operation(event, "*"))
+    division_button.bind("<Button-1>", lambda event: handle_operation(event, "/"))
+    clear_button.bind(
+        "<Button-1>",
+        lambda event: clear(
+            event, [first_number_value, second_number_value, answer_value]
+        ),
+    )
 
     app.mainloop()
-
