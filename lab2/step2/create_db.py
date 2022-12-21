@@ -13,7 +13,7 @@ def _create_database_companies(name: str) -> None:
         [количество сотрудников] INTEGER,
         [представительства] INTEGER,
         [генеральный директор] VARCHAR(100) NOT NULL,
-        [котировка] REAL,
+        [котировка] DECIMAL,
         [биржа] VARCHAR(100))
         ''')
 
@@ -25,7 +25,7 @@ def _create_database_companies(name: str) -> None:
         [ежегодный объем] INTEGER,
         [страна производитель] VARCHAR(100),
         [пик продаж] DATE,
-        [средняя цена] REAL,
+        [средняя цена] DECIMAL,
         FOREIGN KEY ('имя организации') REFERENCES companies(название))
         ''')
 
